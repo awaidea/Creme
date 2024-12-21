@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DiscussNow!</title>
+    <!-- 引入站点图标 -->
+    <link rel="icon" href="https://drive.almondcloud.cn/f/Jw9NHR/IMG_3314.ico" type="image/x-icon">
+    <style>
+        /* 设置页面整体背景图片 */
+        body {
+            background-image: url('https://drive.almondcloud.cn/f/BXMocB/IMG_0692.JPG');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* 简单的样式设置，让图片展示更合适些 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 新增的针对标题h1的样式规则 */
+        h1 {
+            text-align: center;
+            font-family: "SimSun", sans-serif;
+        }
+
+        /* 屏幕适配相关样式，以下是一些示例，可根据实际需求进一步调整 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            body {
+                background-size: contain;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            h1 {
+                font-size: 30px;
+            }
+            body {
+                background-size: cover;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            h1 {
+                font-size: 36px;
+            }
+            body {
+                background-size: cover;
+            }
+        }
+
+        /* 加载动画样式 */
+      .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -60px;
+            margin-left: -60px;
+            z-index: 9999;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 初始隐藏页面内容，只显示加载动画 */
+      .page-content {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div class="page-content">
+        <h1>欢迎来到留言板</h1>
+        <div id="giscus-container"></div>
+    </div>
+    <script>
+        window.onload = function () {
+            document.querySelector('.loader').style.display = 'none';
+            document.querySelector('.page-content').style.display = 'block';
+        };
+    </script>
+    <script src="https://giscus.app/client.js"
+            data-repo="awaidea/blog-1"
+            data-repo-id="R_kgDONTjesg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDONTjess4ClN4X"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="1"
+            data-input-position="top"
+            data-theme="cobalt"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</body>
+
+</html>
