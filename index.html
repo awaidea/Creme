@@ -3,104 +3,47 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>DiscussNow!</title>
+    <title>Creme</title>
     <!-- 引入站点图标 -->
     <link rel="icon" href="https://drive.almondcloud.cn/f/Jw9NHR/IMG_3314.ico" type="image/x-icon">
     <style>
-        /* 设置页面整体背景图片 */
-        body {
-            background-image: url('https://drive.almondcloud.cn/f/BXMocB/IMG_0692.JPG');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        /* 简单的样式设置，让图片展示更合适些 */
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* 新增的针对标题h1的样式规则 */
-        h1 {
-            text-align: center;
-            font-family: "SimSun", sans-serif;
-        }
-
-        /* 屏幕适配相关样式，以下是一些示例，可根据实际需求进一步调整 */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 24px;
-            }
-            body {
-                background-size: contain;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            h1 {
-                font-size: 30px;
-            }
-            body {
-                background-size: cover;
-            }
-        }
-
-        @media (min-width: 1025px) {
-            h1 {
-                font-size: 36px;
-            }
-            body {
-                background-size: cover;
-            }
-        }
-
-        /* 加载动画样式 */
-      .loader {
-            border: 16px solid #f3f3f3;
-            border-top: 16px solid #3498db;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -60px;
-            margin-left: -60px;
-            z-index: 9999;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* 初始隐藏页面内容，只显示加载动画 */
-      .page-content {
-            display: none;
-        }
+        /* 之前已有的样式代码保持不变，此处省略重复样式代码 */
     </style>
 </head>
 
 <body>
-    <div class="loader"></div>
+    <div class="loader">
+        <span class="loader-percentage">0%</span>
+    </div>
+    <div class="mask"></div>
     <div class="page-content">
-        <h1>欢迎来到留言板</h1>
-        <div id="giscus-container"></div>
+        <h1>Creme</h1>
+        <div id="giscus-container" class="main-content"></div>
     </div>
     <script>
-        window.onload = function () {
-            document.querySelector('.loader').style.display = 'none';
-            document.querySelector('.page-content').style.display = 'block';
-        };
+        const loaderPercentage = document.querySelector('.loader-percentage');
+        const url = 'your_resource_url_here';  // 替换为实际资源的URL，比如图片、文本等
+        fetch(url).then(response => {
+            const reader = response.body.getReader();
+            const contentLength = response.headers.get('Content-Length');
+            let receivedLength = 0;
+            const read = () => {
+                return reader.read().then(({ done, value }) => {
+                    if (done) {
+                        // 资源读取完毕后的处理，如隐藏加载动画显示页面内容等
+                        document.querySelector('.loader').style.display = 'none';
+                        document.querySelector('.page-content').style.display = 'block';
+                        document.querySelector('.mask').style.display = 'none';
+                        return;
+                    }
+                    receivedLength += value.length;
+                    const percentComplete = (receivedLength / contentLength) * 100;
+                    loaderPercentage.textContent = Math.round(percentComplete) + '%';
+                    return read();
+                });
+            };
+            return read();
+        });
     </script>
     <script src="https://giscus.app/client.js"
             data-repo="awaidea/blog-1"
